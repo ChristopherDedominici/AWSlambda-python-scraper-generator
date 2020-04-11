@@ -25,7 +25,7 @@ main()
     deploy
 
     # enable the next line if you want to automatically start the Docker enviroment
-    start_docker_env
+    # start_docker_env
 }
 
 function check_params()
@@ -90,8 +90,10 @@ function deploy()
 {
     echo -e "\n${PURPLE}deploying lambda to AWS with command: sam deploy --guided${NORMAL}"
     echo -e "${PURPLE}the settings will be automatically managed by the script generate_lambda.sh${NORMAL}"
-    # 2 enters and 4 yes
-    printf "\n\ny\ny\ny\ny\n" | sam deploy --guided || exit_on_error "sam deploy --guided"
+    
+    # app_name, 2 enters and 4 yes
+    set_app_name_no_underscores
+    printf "${app_name_dash}\n\ny\ny\ny\ny\n" | sam deploy --guided || exit_on_error "sam deploy --guided"
 }
 
 function start_docker_env()
